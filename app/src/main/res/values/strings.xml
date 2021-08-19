@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">myYoutubeApp</string>
+    <string name="bottomHomeText">홈</string>
 </resources>
