@@ -34,12 +34,12 @@ class CustomMotionLayout(context: Context, attributeSet: AttributeSet ? =null) :
     override fun onTouchEvent(event: MotionEvent): Boolean {
 
         when(event.actionMasked){
+            //action_up 은 누른걸 땟을 때
+
             MotionEvent.ACTION_UP , MotionEvent.ACTION_CANCEL ->{
                 motionTouchStarted = false
                 return super.onTouchEvent(event)
             }
-
-
         }
 
         if(motionTouchStarted.not()){
@@ -57,7 +57,6 @@ class CustomMotionLayout(context: Context, attributeSet: AttributeSet ? =null) :
                 mainContainerView.getHitRect(hitRect)
 
                 return hitRect.contains(e1.x.toInt(),e1.y.toInt())
-
 
             }
         }

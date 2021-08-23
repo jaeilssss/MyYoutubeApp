@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.DiffUtil
 import com.bumptech.glide.Glide
 import com.example.myyoutubeapp.R
 
-class VideoAdapter : ListAdapter<VideoModel,VideoAdapter.ViewHolder>(diffUtil){
+class VideoAdapter(val callback:(String,String) -> Unit) : ListAdapter<VideoModel,VideoAdapter.ViewHolder>(diffUtil){
 
 
     inner class ViewHolder(private val view : View) : RecyclerView.ViewHolder(view){
@@ -30,7 +30,9 @@ class VideoAdapter : ListAdapter<VideoModel,VideoAdapter.ViewHolder>(diffUtil){
             subTitleTextView.text = item.subtitle
 
             Glide.with(view).load(item.thumb).into(thumbnailImageView)
-
+            view.setOnClickListener {
+                callback(item.sources,item.title)
+            }
         }
     }
 

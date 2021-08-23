@@ -26,7 +26,13 @@ class MainActivity : AppCompatActivity() {
             .replace(R.id.fragmentContainer, playerFragment())
             .commit()
 
-        videoAdapter = VideoAdapter()
+        videoAdapter = VideoAdapter(callback = { url ,title ->
+            supportFragmentManager.fragments.find { it is playerFragment }?.let {
+                (it as playerFragment).play(url,title)
+
+
+            }
+        })
 
         findViewById<RecyclerView>(R.id.Rcv).apply {
             adapter = videoAdapter
@@ -34,6 +40,8 @@ class MainActivity : AppCompatActivity() {
         }
         getVideoList()
     }
+
+
 
     private fun getVideoList(){
         val retrofit = Retrofit.Builder()
