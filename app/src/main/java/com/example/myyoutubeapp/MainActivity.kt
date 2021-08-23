@@ -3,6 +3,9 @@ package com.example.myyoutubeapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.myyoutubeapp.adapter.VideoAdapter
 import com.example.myyoutubeapp.dto.VideoDto
 import com.example.myyoutubeapp.service.VideoService
 import retrofit2.Call
@@ -14,14 +17,22 @@ import retrofit2.converter.gson.GsonConverterFactory
 class MainActivity : AppCompatActivity() {
 
 
+    lateinit var videoAdapter : VideoAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        getVideoList()
+
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainer, playerFragment())
             .commit()
 
+        videoAdapter = VideoAdapter()
+
+        findViewById<RecyclerView>(R.id.Rcv).apply {
+            adapter = videoAdapter
+            layoutManager = LinearLayoutManager(context)
+        }
+        getVideoList()
     }
 
     private fun getVideoList(){
@@ -42,6 +53,8 @@ class MainActivity : AppCompatActivity() {
                             }
                             response.body()?.let {
                                 Log.d("MainActivity",it.toString())
+
+                                videoAdapter.submitList(it.videos)
                             }
                         }
 

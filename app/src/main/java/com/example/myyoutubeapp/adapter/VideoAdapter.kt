@@ -6,17 +6,30 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myyoutubeapp.model.VideoModel
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.DiffUtil
+import com.bumptech.glide.Glide
+import com.example.myyoutubeapp.R
 
 class VideoAdapter : ListAdapter<VideoModel,VideoAdapter.ViewHolder>(diffUtil){
 
 
-    inner class ViewHolder(view : View) : RecyclerView.ViewHolder(view){
+    inner class ViewHolder(private val view : View) : RecyclerView.ViewHolder(view){
 
 
         fun bind(item : VideoModel){
 
+            val titleTextView = view.findViewById<TextView>(R.id.titleTextView)
+            val subTitleTextView = view.findViewById<TextView>(R.id.subTitleTextView)
+            val thumbnailImageView = view.findViewById<ImageView>(R.id.thumnailImageView)
+
+            titleTextView.text =item.title
+
+            subTitleTextView.text = item.subtitle
+
+            Glide.with(view).load(item.thumb).into(thumbnailImageView)
 
         }
     }
@@ -35,10 +48,10 @@ class VideoAdapter : ListAdapter<VideoModel,VideoAdapter.ViewHolder>(diffUtil){
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return viewHolder(LayoutInflater.from(parent.context).inflate(R.layout.))
+        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_video,parent,false))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        TODO("Not yet implemented")
+       return holder.bind(currentList[position])
     }
 }
