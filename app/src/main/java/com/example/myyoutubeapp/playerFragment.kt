@@ -94,7 +94,7 @@ class playerFragment : Fragment(R.layout.fragment_player) {
                     if(isPlaying){
                     it?.bottomPlayerControllerButton?.setImageResource(R.drawable.ic_baseline_pause_24)
                     }else{
-                        it?.bottomPlayerControllerButton?.setImageResource(R.drawable.img_paly)
+                        it?.bottomPlayerControllerButton?.setImageResource(R.drawable.ic_baseline_play_arrow_24)
                     }
                 }
             })

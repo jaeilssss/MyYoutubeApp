@@ -1,8 +1,12 @@
 package com.example.myyoutubeapp
 
+import android.app.Activity
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.view.WindowManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myyoutubeapp.adapter.VideoAdapter
@@ -39,6 +43,7 @@ class MainActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(context)
         }
         getVideoList()
+        makeStatusBarTransparent()
     }
 
 
@@ -75,4 +80,15 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
+    fun Activity.makeStatusBarTransparent() {
+        with(window) {
+            decorView.systemUiVisibility =
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
+                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+            addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            statusBarColor = Color.TRANSPARENT
+        }
+    }
+
 }
