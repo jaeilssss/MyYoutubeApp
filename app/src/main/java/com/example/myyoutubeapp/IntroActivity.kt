@@ -2,12 +2,14 @@ package com.example.myyoutubeapp
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.View
 import android.view.WindowManager
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.ScrollView
 import androidx.constraintlayout.motion.widget.MotionLayout
@@ -17,6 +19,7 @@ class IntroActivity : AppCompatActivity() {
     private var isGateringMotionAnimating: Boolean = false
    lateinit var france : ImageView
    lateinit var motion : MotionLayout
+   lateinit var button : Button
     private var isCurationMotionAnimating: Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +27,11 @@ class IntroActivity : AppCompatActivity() {
         var scroll  : NestedScrollView = findViewById(R.id.scroll)
         france = findViewById(R.id.france)
         motion = findViewById(R.id.motionIntro)
+        button = findViewById(R.id.startButton)
+        button.setOnClickListener {
+            var intent = Intent(this,MainActivity::class.java)
+            startActivity(intent)
+        }
         initScrollViewListeners(scroll)
         makeStatusBarTransparent()
     }
@@ -49,17 +57,11 @@ class IntroActivity : AppCompatActivity() {
 
             if (scrolledValue > 150f.dpToPx(this).toInt()) {
                 if (isGateringMotionAnimating.not()) {
-//                    binding.gatheringDigitalThingsBackgroundMotionLayout.transitionToEnd()
-//                    binding.gatheringDigitalThingsMotionLayout.transitionToEnd()
-//                    binding.buttonShownMotionLayout.transitionToEnd()
                     motion.transitionToEnd()
 
                 }
             } else {
                 if (isGateringMotionAnimating.not()) {
-//                    binding.gatheringDigitalThingsBackgroundMotionLayout.transitionToStart()
-//                    binding.gatheringDigitalThingsMotionLayout.transitionToStart()
-//                    binding.buttonShownMotionLayout.transitionToStart()
                     motion.transitionToStart()
 
                 }
@@ -67,8 +69,6 @@ class IntroActivity : AppCompatActivity() {
 
             if (scrolledValue > scrollView.height) {
                 if (isCurationMotionAnimating.not()) {
-//                    binding.curationAnimationMotionLayout.setTransition(R.id.curation_animation_start1, R.id.curation_animation_end1)
-//                    binding.curationAnimationMotionLayout.transitionToEnd()
                     isCurationMotionAnimating = true
                     motion.transitionToEnd()
                 }
